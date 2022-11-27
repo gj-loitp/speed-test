@@ -19,6 +19,7 @@ android {
     repositories {
         google()
     }
+    namespace 'egcodes.com.speedtest'
 }
 
 dependencies {
