@@ -8,4 +8,5 @@
     <string name="upload">UPLOAD</string>
     <string name="selec_best_sv">Selecting best server based on ping...</string>
     <string name="restart_test">Restart Test</string>
+    <string name="err_try_again">There was a problem in getting Host Location. Try again later.</string>
 </resources>

@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import egcodes.com.speedtest.R;
 
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                     double dist = 0.0;
                     int findServerIndex = 0;
                     for (int index : mapKey.keySet()) {
-                        if (tempBlackList.contains(mapValue.get(index).get(5))) {
+                        if (tempBlackList.contains(Objects.requireNonNull(mapValue.get(index)).get(5))) {
                             continue;
                         }
 
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
                         List<String> ls = mapValue.get(index);
                         Location dest = new Location("Dest");
+                        assert ls != null;
                         dest.setLatitude(Double.parseDouble(ls.get(0)));
                         dest.setLongitude(Double.parseDouble(ls.get(1)));
 
@@ -133,14 +135,14 @@ public class MainActivity extends AppCompatActivity {
                             findServerIndex = index;
                         }
                     }
-                    String testAddr = mapKey.get(findServerIndex).replace("http://", "https://");
+                    String testAddr = Objects.requireNonNull(mapKey.get(findServerIndex)).replace("http://", "https://");
                     final List<String> info = mapValue.get(findServerIndex);
                     final double distance = dist;
 
                     if (info == null) {
                         runOnUiThread(() -> {
                             startButton.setTextSize(12);
-                            startButton.setText("There was a problem in getting Host Location. Try again later.");
+                            startButton.setText(R.string.err_try_again);
                         });
                         return;
                     }
