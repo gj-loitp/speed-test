@@ -1,4 +1,4 @@
-package com.roy.speedtest;
+package com.roy.speedtest.ui;
 
 import android.graphics.Color;
 import android.location.Location;
@@ -13,7 +13,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +29,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import com.roy.speedtest.sv.GetSpeedTestHostsHandler;
 import com.roy.speedtest.test.HttpDownloadTest;
 import com.roy.speedtest.test.HttpUploadTest;
 import com.roy.speedtest.test.PingTest;

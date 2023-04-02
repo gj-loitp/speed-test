@@ -1,4 +1,4 @@
-package com.roy.speedtest;
+package com.roy.speedtest.sv;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,7 +7,6 @@ import java.net.HttpURLConnection;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 
 public class GetSpeedTestHostsHandler extends Thread {
 
