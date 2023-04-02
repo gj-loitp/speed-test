@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViews() {
         final Button btStart = findViewById(R.id.btStart);
+        findViewById(R.id.ivBack).setOnClickListener(view -> {
+            onBackPressed();
+        });
 
         final DecimalFormat dec = new DecimalFormat("#.##");
         btStart.setText(getString(R.string.begin_test));
