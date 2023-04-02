@@ -171,7 +171,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
@@ -188,29 +189,22 @@
                 android:layout_centerHorizontal="true"
                 app:srcCompat="@drawable/bar" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/w_50"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btStart"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/textColor2"
-                    android:elevation="@dimen/margin_padding_small"
-                    android:shadowRadius="15"
-                    android:text="@string/begin_test"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/background_light"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
         </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btStart"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/textColor2"
+            android:elevation="@dimen/margin_padding_small"
+            android:shadowRadius="15"
+            android:text="@string/begin_test"
+            android:textAllCaps="true"
+            android:textColor="@android:color/background_light"
+            android:textSize="@dimen/txt_large" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
