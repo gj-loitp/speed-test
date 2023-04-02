@@ -7,7 +7,7 @@ android {
         targetSdkVersion 33
         versionCode 20230402
         versionName "2023.04.02"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -22,9 +22,9 @@ android {
 }
 
 dependencies {
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation files('libs/achartengine-1.2.0.jar')
-    implementation 'com.android.support:appcompat-v7:25.0.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 }
