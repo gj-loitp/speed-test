@@ -54,4 +54,5 @@ dependencies {
     })
     implementation files('libs/achartengine-1.2.0.jar')
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    api 'nl.dionsegijn:konfetti-xml:2.0.2'
 }

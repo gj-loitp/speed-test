@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.roy.speedtest.ext.C;
+import com.roy.speedtest.helper.Presets;
 import com.roy.speedtest.sv.SpeedTestHandler;
 import com.roy.speedtest.test.HttpDownloadTest;
 import com.roy.speedtest.test.HttpUploadTest;
@@ -37,6 +38,7 @@ import java.util.Objects;
 
 import egcodes.com.speedtest.BuildConfig;
 import egcodes.com.speedtest.R;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,8 +66,10 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupViews() {
         final TextView tvVersion = findViewById(R.id.tvVersion);
-        tvVersion.setText("Version " + BuildConfig.VERSION_NAME);
         final Button btStart = findViewById(R.id.btStart);
+        final KonfettiView konfettiView = findViewById(R.id.konfettiView);
+
+        tvVersion.setText("Version " + BuildConfig.VERSION_NAME);
         findViewById(R.id.ivBack).setOnClickListener(view -> {
             onBackPressed();
         });
@@ -97,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
         speedTestHandler.start();
 
         btStart.setOnClickListener(v -> {
+            konfettiView.start(Presets.Companion.festive());
+
+//            konfettiView.start(Presets.Companion.explode());
+//            konfettiView.start(Presets.Companion.parade());
+//            konfettiView.start(Presets.Companion.rain());
+
             btStart.setEnabled(false);
 
             //Restart test icin eger baglanti koparsa
