@@ -1,126 +1,105 @@
-package com.roy.speedtest.test;
+package com.roy.speedtest.test
 
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.net.HttpURLConnection
+import java.net.URL
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLSession
+import javax.net.ssl.SSLSocketFactory
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
+class HttpDownloadTest(private var fileURL: String) : Thread() {
+    private var startTime: Long = 0
+    private var endTime: Long = 0
+    private var downloadElapsedTime = 0.0
+    private var downloadedByte = 0
+    private var finalDownloadRate = 0.0
+    var isFinished = false
+    var instantDownloadRate = 0.0
+    private var timeout = 8
+    private var httpsConn: HttpsURLConnection? = null
 
-public class HttpDownloadTest extends Thread {
-
-    public String fileURL;
-    long startTime = 0;
-    long endTime = 0;
-    double downloadElapsedTime = 0;
-    int downloadedByte = 0;
-    double finalDownloadRate = 0.0;
-    boolean finished = false;
-    double instantDownloadRate = 0;
-    int timeout = 8;
-
-    HttpsURLConnection httpsConn = null;
-
-    public HttpDownloadTest(String fileURL) {
-        this.fileURL = fileURL;
-    }
-
-    private double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        BigDecimal bd;
-        try {
-            bd = new BigDecimal(value);
-        } catch (Exception ex) {
-            return 0.0;
+    private fun round(value: Double, places: Int): Double {
+        require(places >= 0)
+        var bd: BigDecimal = try {
+            BigDecimal(value)
+        } catch (ex: Exception) {
+            return 0.0
         }
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        bd = bd.setScale(places, RoundingMode.HALF_UP)
+        return bd.toDouble()
     }
 
-    public double getInstantDownloadRate() {
-        return instantDownloadRate;
-    }
-
-    public void setInstantDownloadRate(int downloadedByte, double elapsedTime) {
-
-        if (downloadedByte >= 0) {
-            this.instantDownloadRate = round((Double) (((downloadedByte * 8) / (1000 * 1000)) / elapsedTime), 2);
+    private fun setInstantDownloadRate(
+        downloadedByte: Int,
+        elapsedTime: Double
+    ) {
+        instantDownloadRate = if (downloadedByte >= 0) {
+            round((downloadedByte * 8 / (1000 * 1000) / elapsedTime), 2)
         } else {
-            this.instantDownloadRate = 0.0;
+            0.0
         }
     }
 
-    public double getFinalDownloadRate() {
-        return round(finalDownloadRate, 2);
+    fun getFinalDownloadRate(): Double {
+        return round(finalDownloadRate, 2)
     }
 
-    public boolean isFinished() {
-        return finished;
-    }
-
-    @Override
-    public void run() {
-        URL url;
-        downloadedByte = 0;
-        int responseCode;
-
-        List<String> fileUrls = new ArrayList<>();
-        fileUrls.add(fileURL + "random4000x4000.jpg");
-        fileUrls.add(fileURL + "random3000x3000.jpg");
-
-        startTime = System.currentTimeMillis();
-
-        outer:
-        for (String link : fileUrls) {
+    override fun run() {
+        var url: URL
+        downloadedByte = 0
+        var responseCode: Int? = null
+        val fileUrls: MutableList<String> = ArrayList()
+        fileUrls.add(fileURL + "random4000x4000.jpg")
+        fileUrls.add(fileURL + "random3000x3000.jpg")
+        startTime = System.currentTimeMillis()
+        outer@ for (link in fileUrls) {
             try {
-                url = new URL(link);
-                httpsConn = (HttpsURLConnection) url.openConnection();
-                httpsConn.setSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
-                httpsConn.setHostnameVerifier((hostname, session) -> true);
-                httpsConn.connect();
-                responseCode = httpsConn.getResponseCode();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                break;
-            }
+                url = URL(link)
+                httpsConn = url.openConnection() as HttpsURLConnection?
 
+                httpsConn?.let { c ->
+                    c.sslSocketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
+                    c.hostnameVerifier = HostnameVerifier { _: String?, _: SSLSession? -> true }
+                    c.connect()
+                    responseCode = c.responseCode
+                }
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+                break
+            }
             try {
                 if (responseCode == HttpURLConnection.HTTP_OK) {
-                    byte[] buffer = new byte[10240];
+                    val buffer = ByteArray(10240)
+                    val inputStream = httpsConn?.inputStream
+                    var len: Int
 
-                    InputStream inputStream = httpsConn.getInputStream();
-                    int len = 0;
-
-                    while ((len = inputStream.read(buffer)) != -1) {
-                        downloadedByte += len;
-                        endTime = System.currentTimeMillis();
-                        downloadElapsedTime = (endTime - startTime) / 1000.0;
-                        setInstantDownloadRate(downloadedByte, downloadElapsedTime);
-                        if (downloadElapsedTime >= timeout) {
-                            break outer;
+                    inputStream?.let { input ->
+                        while (input.read(buffer).also {
+                                len = it
+                            } != -1) {
+                            downloadedByte += len
+                            endTime = System.currentTimeMillis()
+                            downloadElapsedTime = (endTime - startTime) / 1000.0
+                            setInstantDownloadRate(downloadedByte, downloadElapsedTime)
+                            if (downloadElapsedTime >= timeout) {
+                                break
+                            }
                         }
+                        input.close()
                     }
-
-                    inputStream.close();
-                    httpsConn.disconnect();
+                    httpsConn?.disconnect()
                 } else {
-                    System.out.println("Link not found...");
+                    println("Link not found...")
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (ex: Exception) {
+                ex.printStackTrace()
             }
         }
-
-        endTime = System.currentTimeMillis();
-        downloadElapsedTime = (endTime - startTime) / 1000.0;
-        finalDownloadRate = ((downloadedByte * 8) / (1000 * 1000.0)) / downloadElapsedTime;
-
-        finished = true;
+        endTime = System.currentTimeMillis()
+        downloadElapsedTime = (endTime - startTime) / 1000.0
+        finalDownloadRate = downloadedByte * 8 / (1000 * 1000.0) / downloadElapsedTime
+        isFinished = true
     }
-
 }
