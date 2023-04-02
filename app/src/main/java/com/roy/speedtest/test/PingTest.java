@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-/**
- * @author erdigurbuz
- */
 public class PingTest extends Thread {
 
     HashMap<String, Object> result = new HashMap<>();
@@ -15,7 +12,6 @@ public class PingTest extends Thread {
     double instantRtt = 0;
     double avgRtt = 0.0;
     boolean finished = false;
-    boolean started = false;
 
     public PingTest(String serverIpAddress, int pingTryCount) {
         this.server = serverIpAddress;

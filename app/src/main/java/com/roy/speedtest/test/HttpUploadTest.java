@@ -1,6 +1,5 @@
 package com.roy.speedtest.test;
 
-
 import static com.roy.speedtest.test.HttpUploadTest.uploadedKByte;
 
 import java.io.DataOutputStream;
@@ -10,17 +9,12 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
-/**
- * @author erdigurbuz
- */
 public class HttpUploadTest extends Thread {
 
-    public String fileURL = "";
+    public String fileURL;
     static int uploadedKByte = 0;
     double uploadElapsedTime = 0;
     boolean finished = false;
@@ -53,6 +47,7 @@ public class HttpUploadTest extends Thread {
         try {
             BigDecimal bd = new BigDecimal(uploadedKByte);
         } catch (Exception ex) {
+            ex.printStackTrace();
             return 0.0;
         }
 
@@ -85,6 +80,7 @@ public class HttpUploadTest extends Thread {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
             }
 
@@ -116,18 +112,13 @@ class HandlerUpload extends Thread {
         while (true) {
 
             try {
-                HttpsURLConnection conn = null;
+                HttpsURLConnection conn;
                 conn = (HttpsURLConnection) url.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Connection", "Keep-Alive");
                 conn.setSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
-                conn.setHostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
+                conn.setHostnameVerifier((hostname, session) -> true);
                 conn.connect();
                 DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 
