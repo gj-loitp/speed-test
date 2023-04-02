@@ -204,7 +204,7 @@
             android:elevation="@dimen/margin_padding_small"
             android:shadowRadius="15"
             android:text="@string/begin_test"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="@android:color/background_light"
             android:textSize="@dimen/txt_large" />
 
