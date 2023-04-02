@@ -8,17 +8,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
-/**
- * @author erdigurbuz
- */
 public class HttpDownloadTest extends Thread {
 
-    public String fileURL = "";
+    public String fileURL;
     long startTime = 0;
     long endTime = 0;
     double downloadElapsedTime = 0;
@@ -70,9 +65,9 @@ public class HttpDownloadTest extends Thread {
 
     @Override
     public void run() {
-        URL url = null;
+        URL url;
         downloadedByte = 0;
-        int responseCode = 0;
+        int responseCode;
 
         List<String> fileUrls = new ArrayList<>();
         fileUrls.add(fileURL + "random4000x4000.jpg");
@@ -86,17 +81,12 @@ public class HttpDownloadTest extends Thread {
                 url = new URL(link);
                 httpsConn = (HttpsURLConnection) url.openConnection();
                 httpsConn.setSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
-                httpsConn.setHostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
+                httpsConn.setHostnameVerifier((hostname, session) -> true);
                 httpsConn.connect();
                 responseCode = httpsConn.getResponseCode();
             } catch (Exception ex) {
                 ex.printStackTrace();
-                break outer;
+                break;
             }
 
             try {
