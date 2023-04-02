@@ -1,4 +1,4 @@
-package egcodes.com.speedtest.test;
+package com.roy.speedtest.test;
 
 import java.io.InputStream;
 import java.math.BigDecimal;

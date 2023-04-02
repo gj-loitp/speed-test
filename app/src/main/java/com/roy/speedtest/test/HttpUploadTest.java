@@ -1,12 +1,11 @@
-package egcodes.com.speedtest.test;
+package com.roy.speedtest.test;
 
 
-import static egcodes.com.speedtest.test.HttpUploadTest.uploadedKByte;
+import static com.roy.speedtest.test.HttpUploadTest.uploadedKByte;
 
 import java.io.DataOutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

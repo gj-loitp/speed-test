@@ -1,4 +1,4 @@
-package egcodes.com.speedtest;
+package com.roy.speedtest;
 
 import android.graphics.Color;
 import android.location.Location;
@@ -27,9 +27,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import egcodes.com.speedtest.test.HttpDownloadTest;
-import egcodes.com.speedtest.test.HttpUploadTest;
-import egcodes.com.speedtest.test.PingTest;
+import com.roy.speedtest.test.HttpDownloadTest;
+import com.roy.speedtest.test.HttpUploadTest;
+import com.roy.speedtest.test.PingTest;
+
+import egcodes.com.speedtest.R;
 
 
 public class MainActivity extends AppCompatActivity {
