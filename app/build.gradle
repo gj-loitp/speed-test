@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
     defaultConfig {
-        applicationId "egcodes.com.speedtest"
+        applicationId "com.roy93group.speedtest"
         minSdkVersion 14
-        targetSdkVersion 29
-        versionCode 4
-        versionName "1.0.4"
+        targetSdkVersion 33
+        versionCode 20230402
+        versionName "2023.04.02"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -26,6 +26,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation files('libs/achartengine-1.2.0.jar')
-    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:25.0.1'
 }
