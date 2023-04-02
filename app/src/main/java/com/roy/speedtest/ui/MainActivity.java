@@ -56,17 +56,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_main);
 
-        final Button startButton = findViewById(R.id.btStart);
+        setupViews();
+    }
+
+    private void setupViews() {
+        final Button btStart = findViewById(R.id.btStart);
+
         final DecimalFormat dec = new DecimalFormat("#.##");
-        startButton.setText(getString(R.string.begin_test));
+        btStart.setText(getString(R.string.begin_test));
 
         tempBlackList = new HashSet<>();
 
         speedTestHandler = new SpeedTestHandler();
         speedTestHandler.start();
 
-        startButton.setOnClickListener(v -> {
-            startButton.setEnabled(false);
+        btStart.setOnClickListener(v -> {
+            btStart.setEnabled(false);
 
             //Restart test icin eger baglanti koparsa
             if (speedTestHandler == null) {
@@ -76,15 +81,15 @@ public class MainActivity extends AppCompatActivity {
 
             new Thread(new Runnable() {
                 RotateAnimation rotate;
-                final ImageView barImageView = findViewById(R.id.ivBar);
-                final TextView pingTextView = findViewById(R.id.tvPing);
-                final TextView downloadTextView = findViewById(R.id.tvDownload);
-                final TextView uploadTextView = findViewById(R.id.tvUpload);
+                final ImageView ivBar = findViewById(R.id.ivBar);
+                final TextView tvPing = findViewById(R.id.tvPing);
+                final TextView tvDownload = findViewById(R.id.tvDownload);
+                final TextView tvUpload = findViewById(R.id.tvUpload);
 
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void run() {
-                    runOnUiThread(() -> startButton.setText(R.string.selec_best_sv));
+                    runOnUiThread(() -> btStart.setText(R.string.selec_best_sv));
 
                     //Get egcodes.speedtest hosts
                     int timeCount = 600; //1min
@@ -98,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
                         if (timeCount <= 0) {
                             runOnUiThread(() -> {
                                 Toast.makeText(getApplicationContext(), "No Connection...", Toast.LENGTH_LONG).show();
-                                startButton.setEnabled(true);
-                                startButton.setTextSize(16);
-                                startButton.setText(R.string.restart_test);
+                                btStart.setEnabled(true);
+                                btStart.setTextSize(16);
+                                btStart.setText(R.string.restart_test);
                             });
                             speedTestHandler = null;
                             return;
@@ -143,19 +148,19 @@ public class MainActivity extends AppCompatActivity {
 
                     if (info == null) {
                         runOnUiThread(() -> {
-                            startButton.setTextSize(12);
-                            startButton.setText(R.string.err_try_again);
+                            btStart.setTextSize(12);
+                            btStart.setText(R.string.err_try_again);
                         });
                         return;
                     }
 
                     runOnUiThread(() -> {
-                        startButton.setTextSize(13);
-                        startButton.setText(String.format("Host Location: %s [Distance: %s km]", info.get(2), new DecimalFormat("#.##").format(distance / 1000)));
+                        btStart.setTextSize(13);
+                        btStart.setText(String.format("Host Location: %s [Distance: %s km]", info.get(2), new DecimalFormat("#.##").format(distance / 1000)));
                     });
 
                     //Init Ping graphic
-                    final LinearLayoutCompat chartPing = findViewById(R.id.layoutChartPing);
+                    final LinearLayoutCompat layoutChartPing = findViewById(R.id.layoutChartPing);
                     XYSeriesRenderer pingRenderer = new XYSeriesRenderer();
                     XYSeriesRenderer.FillOutsideLine pingFill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
                     pingFill.setColor(Color.parseColor("#4d5a6a"));
@@ -176,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     multiPingRenderer.addSeriesRenderer(pingRenderer);
 
                     //Init Download graphic
-                    final LinearLayoutCompat chartDownload = findViewById(R.id.layoutChartDownload);
+                    final LinearLayoutCompat layoutChartDownload = findViewById(R.id.layoutChartDownload);
                     XYSeriesRenderer downloadRenderer = new XYSeriesRenderer();
                     XYSeriesRenderer.FillOutsideLine downloadFill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
                     downloadFill.setColor(Color.parseColor("#4d5a6a"));
@@ -197,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     multiDownloadRenderer.addSeriesRenderer(downloadRenderer);
 
                     //Init Upload graphic
-                    final LinearLayoutCompat chartUpload = findViewById(R.id.layoutChartUpload);
+                    final LinearLayoutCompat layoutChartUpload = findViewById(R.id.layoutChartUpload);
                     XYSeriesRenderer uploadRenderer = new XYSeriesRenderer();
                     XYSeriesRenderer.FillOutsideLine uploadFill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
                     uploadFill.setColor(Color.parseColor("#4d5a6a"));
@@ -219,12 +224,12 @@ public class MainActivity extends AppCompatActivity {
 
                     //Reset value, graphics
                     runOnUiThread(() -> {
-                        pingTextView.setText("0 ms");
-                        chartPing.removeAllViews();
-                        downloadTextView.setText("0 Mbps");
-                        chartDownload.removeAllViews();
-                        uploadTextView.setText("0 Mbps");
-                        chartUpload.removeAllViews();
+                        tvPing.setText("0 ms");
+                        layoutChartPing.removeAllViews();
+                        tvDownload.setText("0 Mbps");
+                        layoutChartDownload.removeAllViews();
+                        tvUpload.setText("0 Mbps");
+                        layoutChartUpload.removeAllViews();
                     });
                     final List<Double> pingRateList = new ArrayList<>();
                     final List<Double> downloadRateList = new ArrayList<>();
@@ -265,12 +270,12 @@ public class MainActivity extends AppCompatActivity {
                                 System.out.println("Ping error...");
                             } else {
                                 //Success
-                                runOnUiThread(() -> pingTextView.setText(dec.format(pingTest.getAvgRtt()) + " ms"));
+                                runOnUiThread(() -> tvPing.setText(dec.format(pingTest.getAvgRtt()) + " ms"));
                             }
                         } else {
                             pingRateList.add(pingTest.getInstantRtt());
 
-                            runOnUiThread(() -> pingTextView.setText(dec.format(pingTest.getInstantRtt()) + " ms"));
+                            runOnUiThread(() -> tvPing.setText(dec.format(pingTest.getInstantRtt()) + " ms"));
 
                             //Update chart
                             runOnUiThread(() -> {
@@ -288,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                                 dataset.addSeries(pingSeries);
 
                                 GraphicalView chartView = ChartFactory.getLineChartView(getBaseContext(), dataset, multiPingRenderer);
-                                chartPing.addView(chartView, 0);
+                                layoutChartPing.addView(chartView, 0);
 
                             });
                         }
@@ -302,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
                                     System.out.println("Download error...");
                                 } else {
                                     //Success
-                                    runOnUiThread(() -> downloadTextView.setText(dec.format(downloadTest.getFinalDownloadRate()) + " Mbps"));
+                                    runOnUiThread(() -> tvDownload.setText(dec.format(downloadTest.getFinalDownloadRate()) + " Mbps"));
                                 }
                             } else {
                                 //Calc position
@@ -314,8 +319,8 @@ public class MainActivity extends AppCompatActivity {
                                     rotate = new RotateAnimation(lastPosition, position, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                                     rotate.setInterpolator(new LinearInterpolator());
                                     rotate.setDuration(100);
-                                    barImageView.startAnimation(rotate);
-                                    downloadTextView.setText(dec.format(downloadTest.getInstantDownloadRate()) + " Mbps");
+                                    ivBar.startAnimation(rotate);
+                                    tvDownload.setText(dec.format(downloadTest.getInstantDownloadRate()) + " Mbps");
 
                                 });
                                 lastPosition = position;
@@ -336,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
                                     dataset.addSeries(downloadSeries);
 
                                     GraphicalView chartView = ChartFactory.getLineChartView(getBaseContext(), dataset, multiDownloadRenderer);
-                                    chartDownload.addView(chartView, 0);
+                                    layoutChartDownload.addView(chartView, 0);
                                 });
 
                             }
@@ -351,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
                                     System.out.println("Upload error...");
                                 } else {
                                     //Success
-                                    runOnUiThread(() -> uploadTextView.setText(dec.format(uploadTest.getFinalUploadRate()) + " Mbps"));
+                                    runOnUiThread(() -> tvUpload.setText(dec.format(uploadTest.getFinalUploadRate()) + " Mbps"));
                                 }
                             } else {
                                 //Calc position
@@ -363,8 +368,8 @@ public class MainActivity extends AppCompatActivity {
                                     rotate = new RotateAnimation(lastPosition, position, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                                     rotate.setInterpolator(new LinearInterpolator());
                                     rotate.setDuration(100);
-                                    barImageView.startAnimation(rotate);
-                                    uploadTextView.setText(dec.format(uploadTest.getInstantUploadRate()) + " Mbps");
+                                    ivBar.startAnimation(rotate);
+                                    tvUpload.setText(dec.format(uploadTest.getInstantUploadRate()) + " Mbps");
                                 });
                                 lastPosition = position;
 
@@ -387,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
                                     dataset.addSeries(uploadSeries);
 
                                     GraphicalView chartView = ChartFactory.getLineChartView(getBaseContext(), dataset, multiUploadRenderer);
-                                    chartUpload.addView(chartView, 0);
+                                    layoutChartUpload.addView(chartView, 0);
                                 });
 
                             }
@@ -425,9 +430,9 @@ public class MainActivity extends AppCompatActivity {
 
                     //Thread bitiminde button yeniden aktif ediliyor
                     runOnUiThread(() -> {
-                        startButton.setEnabled(true);
-                        startButton.setTextSize(16);
-                        startButton.setText("Restart Test");
+                        btStart.setEnabled(true);
+                        btStart.setTextSize(16);
+                        btStart.setText("Restart Test");
                     });
 
 
@@ -435,7 +440,6 @@ public class MainActivity extends AppCompatActivity {
             }).start();
         });
     }
-
 
     public int getPositionByRate(double rate) {
         if (rate <= 1) {
