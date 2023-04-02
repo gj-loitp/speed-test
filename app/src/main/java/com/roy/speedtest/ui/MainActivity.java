@@ -35,6 +35,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
+import egcodes.com.speedtest.BuildConfig;
 import egcodes.com.speedtest.R;
 
 
@@ -60,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
         setupViews();
     }
 
+    @SuppressLint("SetTextI18n")
     private void setupViews() {
+        final TextView tvVersion = findViewById(R.id.tvVersion);
+        tvVersion.setText("Version " + BuildConfig.VERSION_NAME);
         final Button btStart = findViewById(R.id.btStart);
         findViewById(R.id.ivBack).setOnClickListener(view -> {
             onBackPressed();
