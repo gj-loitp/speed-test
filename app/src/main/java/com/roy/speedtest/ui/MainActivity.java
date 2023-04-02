@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.ivBack).setOnClickListener(view -> {
             onBackPressed();
         });
+        findViewById(R.id.ivMenu).setOnClickListener(view -> {
+
+        });
 
         final DecimalFormat dec = new DecimalFormat("#.##");
         btStart.setText(getString(R.string.begin_test));
