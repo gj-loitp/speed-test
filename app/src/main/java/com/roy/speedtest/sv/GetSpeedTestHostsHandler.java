@@ -68,14 +68,14 @@ public class GetSpeedTestHostsHandler extends Thread {
             return;
         }
 
-        String uploadAddress = "";
-        String name = "";
-        String country = "";
-        String cc = "";
-        String sponsor = "";
-        String lat = "";
-        String lon = "";
-        String host = "";
+        String uploadAddress;
+        String name;
+        String country;
+        String cc;
+        String sponsor;
+        String lat;
+        String lon;
+        String host;
 
 
         //Best server
