@@ -212,7 +212,6 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <FrameLayout
-        android:id="@+id/flAd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

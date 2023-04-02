@@ -2,7 +2,6 @@
 <resources>
     <color name="colorPrimary">#141415</color>
     <color name="colorPrimary2">#233345</color>
-    <color name="colorAccent">#141415</color>
     <color name="textColor">#D0D0E3</color>
     <color name="textColor2">#242e3a</color>
 </resources>
