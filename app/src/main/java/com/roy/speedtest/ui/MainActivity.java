@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "No Connection...", Toast.LENGTH_LONG).show();
                                 startButton.setEnabled(true);
                                 startButton.setTextSize(16);
-                                startButton.setText("Restart Test");
+                                startButton.setText(R.string.restart_test);
                             });
                             speedTestHandler = null;
                             return;
