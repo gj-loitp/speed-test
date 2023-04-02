@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/app_name" />
-    <item android:title="@string/app_name" />
-    <item android:title="@string/app_name" />
-    <item android:title="@string/app_name" />
+    <item
+        android:id="@+id/menuRateApp"
+        android:title="@string/rate_app" />
+    <item
+        android:id="@+id/menuMoreApp"
+        android:title="@string/more_apps" />
+    <item
+        android:id="@+id/menuShareApp"
+        android:title="@string/share_app" />
+    <item
+        android:id="@+id/menuPolicy"
+        android:title="@string/term_policy" />
 </menu>

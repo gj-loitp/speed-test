@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -17,7 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
-import com.roy.speedtest.ext.Activity;
+import com.roy.speedtest.ext.C;
 import com.roy.speedtest.sv.SpeedTestHandler;
 import com.roy.speedtest.test.HttpDownloadTest;
 import com.roy.speedtest.test.HttpUploadTest;
@@ -38,8 +36,6 @@ import java.util.List;
 import java.util.Objects;
 
 import egcodes.com.speedtest.R;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -70,12 +66,20 @@ public class MainActivity extends AppCompatActivity {
             onBackPressed();
         });
         findViewById(R.id.ivMenu).setOnClickListener(view -> {
-            Activity.INSTANCE.showPopup(
+            C.INSTANCE.showPopup(
                     this,
                     view,
                     R.menu.menu_popup,
                     menuItem -> {
-                        //do
+                        if (menuItem.getItemId() == R.id.menuRateApp) {
+                            C.INSTANCE.rateApp(this, this.getPackageName());
+                        } else if (menuItem.getItemId() == R.id.menuMoreApp) {
+                            C.INSTANCE.moreApp(this, "Roy93Group");
+                        } else if (menuItem.getItemId() == R.id.menuShareApp) {
+                            C.INSTANCE.shareApp(this);
+                        } else if (menuItem.getItemId() == R.id.menuPolicy) {
+                            C.INSTANCE.openBrowserPolicy(this);
+                        }
                         return null;
                     });
         });
