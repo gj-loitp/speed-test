@@ -1,5 +1,6 @@
 package com.roy.speedtest.ui;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 final TextView downloadTextView = findViewById(R.id.tvDownload);
                 final TextView uploadTextView = findViewById(R.id.tvUpload);
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void run() {
                     runOnUiThread(() -> startButton.setText(R.string.selec_best_sv));
@@ -422,13 +424,10 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     //Thread bitiminde button yeniden aktif ediliyor
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            startButton.setEnabled(true);
-                            startButton.setTextSize(16);
-                            startButton.setText("Restart Test");
-                        }
+                    runOnUiThread(() -> {
+                        startButton.setEnabled(true);
+                        startButton.setTextSize(16);
+                        startButton.setText("Restart Test");
                     });
 
 
