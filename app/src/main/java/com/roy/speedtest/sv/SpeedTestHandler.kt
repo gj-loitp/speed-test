@@ -1,120 +1,111 @@
-package com.roy.speedtest.sv;
+package com.roy.speedtest.sv
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.HttpURLConnection;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.*
 
-public class SpeedTestHandler extends Thread {
+class SpeedTestHandler : Thread() {
+    var mapKey = HashMap<Int, String>()
+    var mapValue = HashMap<Int, List<String>>()
+    var selfLat = 0.0
+    var selfLon = 0.0
+    var isFinished = false
 
-    HashMap<Integer, String> mapKey = new HashMap<>();
-    HashMap<Integer, List<String>> mapValue = new HashMap<>();
-    double selfLat = 0.0;
-    double selfLon = 0.0;
-    boolean finished = false;
-
-
-    public HashMap<Integer, String> getMapKey() {
-        return mapKey;
-    }
-
-    public HashMap<Integer, List<String>> getMapValue() {
-        return mapValue;
-    }
-
-    public double getSelfLat() {
-        return selfLat;
-    }
-
-    public double getSelfLon() {
-        return selfLon;
-    }
-
-    public boolean isFinished() {
-        return finished;
-    }
-
-    @Override
-    public void run() {
+    override fun run() {
         //Get latitude, longitude
         try {
-            URL url = new URL("https://www.speedtest.net/speedtest-config.php");
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            int code = urlConnection.getResponseCode();
-
+            val url = URL("https://www.speedtest.net/speedtest-config.php")
+            val urlConnection = url.openConnection() as HttpURLConnection
+            val code = urlConnection.responseCode
             if (code == 200) {
-                BufferedReader br = new BufferedReader(
-                        new InputStreamReader(
-                                urlConnection.getInputStream()));
-
-                String line;
-                while ((line = br.readLine()) != null) {
+                val br = BufferedReader(
+                    InputStreamReader(
+                        urlConnection.inputStream
+                    )
+                )
+                var line: String
+                while (br.readLine().also { line = it } != null) {
                     if (!line.contains("isp=")) {
-                        continue;
+                        continue
                     }
-                    selfLat = Double.parseDouble(line.split("lat=\"")[1].split(" ")[0].replace("\"", ""));
-                    selfLon = Double.parseDouble(line.split("lon=\"")[1].split(" ")[0].replace("\"", ""));
-                    break;
+                    selfLat = line.split("lat=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                        .toTypedArray()[1].split(" ".toRegex()).dropLastWhile { it.isEmpty() }
+                        .toTypedArray()[0].replace("\"", "").toDouble()
+                    selfLon = line.split("lon=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                        .toTypedArray()[1].split(" ".toRegex()).dropLastWhile { it.isEmpty() }
+                        .toTypedArray()[0].replace("\"", "").toDouble()
+                    break
                 }
-
-                br.close();
+                br.close()
             }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return;
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            return
         }
-
-        String uploadAddress;
-        String name;
-        String country;
-        String cc;
-        String sponsor;
-        String lat;
-        String lon;
-        String host;
+        var uploadAddress: String
+        var name: String
+        var country: String
+        var cc: String
+        var sponsor: String
+        var lat: String
+        var lon: String
+        var host: String
 
 
         //Best server
-        int count = 0;
+        var count = 0
         try {
-            URL url = new URL("https://www.speedtest.net/speedtest-servers-static.php");
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            int code = urlConnection.getResponseCode();
-
+            val url = URL("https://www.speedtest.net/speedtest-servers-static.php")
+            val urlConnection = url.openConnection() as HttpURLConnection
+            val code = urlConnection.responseCode
             if (code == 200) {
-                BufferedReader br = new BufferedReader(
-                        new InputStreamReader(
-                                urlConnection.getInputStream()));
-
-                String line;
-                while ((line = br.readLine()) != null) {
+                val br = BufferedReader(
+                    InputStreamReader(
+                        urlConnection.inputStream
+                    )
+                )
+                var line: String
+                while (br.readLine().also { line = it } != null) {
                     if (line.contains("<server url")) {
-                        uploadAddress = line.split("server url=\"")[1].split("\"")[0];
-                        lat = line.split("lat=\"")[1].split("\"")[0];
-                        lon = line.split("lon=\"")[1].split("\"")[0];
-                        name = line.split("name=\"")[1].split("\"")[0];
-                        country = line.split("country=\"")[1].split("\"")[0];
-                        cc = line.split("cc=\"")[1].split("\"")[0];
-                        sponsor = line.split("sponsor=\"")[1].split("\"")[0];
-                        host = line.split("host=\"")[1].split("\"")[0];
-
-                        List<String> ls = Arrays.asList(lat, lon, name, country, cc, sponsor, host);
-                        mapKey.put(count, uploadAddress);
-                        mapValue.put(count, ls);
-                        count++;
+                        uploadAddress =
+                            line.split("server url=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                                .toTypedArray()[1].split("\"".toRegex())
+                                .dropLastWhile { it.isEmpty() }
+                                .toTypedArray()[0]
+                        lat = line.split("lat=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[1].split("\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[0]
+                        lon = line.split("lon=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[1].split("\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[0]
+                        name = line.split("name=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[1].split("\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[0]
+                        country = line.split("country=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[1].split("\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[0]
+                        cc = line.split("cc=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[1].split("\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[0]
+                        sponsor = line.split("sponsor=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[1].split("\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[0]
+                        host = line.split("host=\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[1].split("\"".toRegex()).dropLastWhile { it.isEmpty() }
+                            .toTypedArray()[0]
+                        val ls = listOf(lat, lon, name, country, cc, sponsor, host)
+                        mapKey[count] = uploadAddress
+                        mapValue[count] = ls
+                        count++
                     }
                 }
-
-                br.close();
+                br.close()
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
-
-        finished = true;
+        isFinished = true
     }
 }
