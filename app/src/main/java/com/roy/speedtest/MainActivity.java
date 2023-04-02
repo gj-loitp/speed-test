@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.a_main);
 
         final Button startButton = (Button) findViewById(R.id.startButton);
         final DecimalFormat dec = new DecimalFormat("#.##");
