@@ -55,4 +55,5 @@ dependencies {
     api files('libs/achartengine-1.2.0.jar')
     api 'androidx.appcompat:appcompat:1.6.1'
     api 'nl.dionsegijn:konfetti-xml:2.0.2'
+    api 'com.applovin:applovin-sdk:11.8.2'
 }
