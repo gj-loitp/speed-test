@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class GetSpeedTestHostsHandler extends Thread {
+public class SpeedTestHandler extends Thread {
 
     HashMap<Integer, String> mapKey = new HashMap<>();
     HashMap<Integer, List<String>> mapValue = new HashMap<>();

@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import com.roy.speedtest.sv.GetSpeedTestHostsHandler;
+import com.roy.speedtest.sv.SpeedTestHandler;
 import com.roy.speedtest.test.HttpDownloadTest;
 import com.roy.speedtest.test.HttpUploadTest;
 import com.roy.speedtest.test.PingTest;
@@ -40,15 +40,15 @@ import egcodes.com.speedtest.R;
 public class MainActivity extends AppCompatActivity {
     static int position = 0;
     static int lastPosition = 0;
-    GetSpeedTestHostsHandler getSpeedTestHostsHandler = null;
+    SpeedTestHandler speedTestHandler = null;
     HashSet<String> tempBlackList;
 
     @Override
     public void onResume() {
         super.onResume();
 
-        getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
-        getSpeedTestHostsHandler.start();
+        speedTestHandler = new SpeedTestHandler();
+        speedTestHandler.start();
     }
 
     @Override
@@ -62,17 +62,17 @@ public class MainActivity extends AppCompatActivity {
 
         tempBlackList = new HashSet<>();
 
-        getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
-        getSpeedTestHostsHandler.start();
+        speedTestHandler = new SpeedTestHandler();
+        speedTestHandler.start();
 
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startButton.setEnabled(false);
 
                 //Restart test icin eger baglanti koparsa
-                if (getSpeedTestHostsHandler == null) {
-                    getSpeedTestHostsHandler = new GetSpeedTestHostsHandler();
-                    getSpeedTestHostsHandler.start();
+                if (speedTestHandler == null) {
+                    speedTestHandler = new SpeedTestHandler();
+                    speedTestHandler.start();
                 }
 
                 new Thread(new Runnable() {
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //Get egcodes.speedtest hosts
                         int timeCount = 600; //1min
-                        while (!getSpeedTestHostsHandler.isFinished()) {
+                        while (!speedTestHandler.isFinished()) {
                             timeCount--;
                             try {
                                 Thread.sleep(100);
@@ -109,16 +109,16 @@ public class MainActivity extends AppCompatActivity {
                                         startButton.setText("Restart Test");
                                     }
                                 });
-                                getSpeedTestHostsHandler = null;
+                                speedTestHandler = null;
                                 return;
                             }
                         }
 
                         //Find closest server
-                        HashMap<Integer, String> mapKey = getSpeedTestHostsHandler.getMapKey();
-                        HashMap<Integer, List<String>> mapValue = getSpeedTestHostsHandler.getMapValue();
-                        double selfLat = getSpeedTestHostsHandler.getSelfLat();
-                        double selfLon = getSpeedTestHostsHandler.getSelfLon();
+                        HashMap<Integer, String> mapKey = speedTestHandler.getMapKey();
+                        HashMap<Integer, List<String>> mapValue = speedTestHandler.getMapValue();
+                        double selfLat = speedTestHandler.getSelfLat();
+                        double selfLon = speedTestHandler.getSelfLon();
                         double tmp = 19349458;
                         double dist = 0.0;
                         int findServerIndex = 0;
