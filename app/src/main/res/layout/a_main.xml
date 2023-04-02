@@ -179,6 +179,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/margin_padding_medium"
                 app:srcCompat="@drawable/ic_main" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -187,6 +188,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/margin_padding_medium"
                 app:srcCompat="@drawable/ic_bar" />
 
         </RelativeLayout>
