@@ -36,7 +36,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:layout_height="@dimen/w_50"
+                android:layout_height="@dimen/w_35"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_launcher" />
 
