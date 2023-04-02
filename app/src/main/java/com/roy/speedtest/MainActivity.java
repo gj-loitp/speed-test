@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_main);
 
-        final Button startButton = (Button) findViewById(R.id.startButton);
+        final Button startButton = (Button) findViewById(R.id.btStart);
         final DecimalFormat dec = new DecimalFormat("#.##");
         startButton.setText("Begin Test");
 
@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
                 new Thread(new Runnable() {
                     RotateAnimation rotate;
-                    ImageView barImageView = (ImageView) findViewById(R.id.barImageView);
-                    TextView pingTextView = (TextView) findViewById(R.id.pingTextView);
-                    TextView downloadTextView = (TextView) findViewById(R.id.downloadTextView);
-                    TextView uploadTextView = (TextView) findViewById(R.id.uploadTextView);
+                    ImageView barImageView = (ImageView) findViewById(R.id.ivBar);
+                    TextView pingTextView = (TextView) findViewById(R.id.tvPing);
+                    TextView downloadTextView = (TextView) findViewById(R.id.tvDownload);
+                    TextView uploadTextView = (TextView) findViewById(R.id.tvUpload);
 
                     @Override
                     public void run() {
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         });
 
                         //Init Ping graphic
-                        final LinearLayout chartPing = (LinearLayout) findViewById(R.id.chartPing);
+                        final LinearLayout chartPing = (LinearLayout) findViewById(R.id.layoutChartPing);
                         XYSeriesRenderer pingRenderer = new XYSeriesRenderer();
                         XYSeriesRenderer.FillOutsideLine pingFill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
                         pingFill.setColor(Color.parseColor("#4d5a6a"));
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         multiPingRenderer.addSeriesRenderer(pingRenderer);
 
                         //Init Download graphic
-                        final LinearLayout chartDownload = (LinearLayout) findViewById(R.id.chartDownload);
+                        final LinearLayout chartDownload = (LinearLayout) findViewById(R.id.layoutChartDownload);
                         XYSeriesRenderer downloadRenderer = new XYSeriesRenderer();
                         XYSeriesRenderer.FillOutsideLine downloadFill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
                         downloadFill.setColor(Color.parseColor("#4d5a6a"));
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                         multiDownloadRenderer.addSeriesRenderer(downloadRenderer);
 
                         //Init Upload graphic
-                        final LinearLayout chartUpload = (LinearLayout) findViewById(R.id.chartUpload);
+                        final LinearLayout chartUpload = (LinearLayout) findViewById(R.id.layoutChartUpload);
                         XYSeriesRenderer uploadRenderer = new XYSeriesRenderer();
                         XYSeriesRenderer.FillOutsideLine uploadFill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
                         uploadFill.setColor(Color.parseColor("#4d5a6a"));

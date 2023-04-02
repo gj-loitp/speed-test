@@ -30,130 +30,129 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/w_150"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="3">
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="PING"
+                    android:text="@string/ping"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/txt_small"
                     android:textStyle="normal|bold" />
 
-                <TextView
-                    android:id="@+id/pingTextView"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0 ms"
+                    android:text="@string/_0_ms"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/txt_large" />
 
-                <LinearLayout
-                    android:id="@+id/chartPing"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutChartPing"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="DOWNLOAD"
+                    android:layout_marginTop="@dimen/margin_padding_medium"
+                    android:text="@string/download"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/txt_small"
                     android:textStyle="normal|bold" />
 
-                <TextView
-                    android:id="@+id/downloadTextView"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDownload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0 Mbps"
+                    android:text="@string/_0_mbps"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/txt_large" />
 
-                <LinearLayout
-                    android:id="@+id/chartDownload"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutChartDownload"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical" />
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="UPLOAD"
+                    android:layout_marginTop="@dimen/margin_padding_medium"
+                    android:text="@string/upload"
                     android:textAlignment="center"
                     android:textColor="@color/textColor"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/txt_small"
                     android:textStyle="normal|bold" />
 
-                <TextView
-                    android:id="@+id/uploadTextView"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvUpload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0 Mbps"
+                    android:text="@string/_0_mbps"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/txt_large" />
 
-                <LinearLayout
-                    android:id="@+id/chartUpload"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutChartUpload"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                </LinearLayout>
-            </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 app:srcCompat="@drawable/main" />
 
-
-            <ImageView
-                android:id="@+id/barImageView"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -162,21 +161,21 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/w_50"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true">
 
-                <Button
-                    android:id="@+id/startButton"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btStart"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
                     android:background="@color/textColor2"
-                    android:elevation="0dp"
+                    android:elevation="@dimen/margin_padding_small"
                     android:shadowRadius="15"
-                    android:text="Begin Test"
+                    android:text="@string/begin_test"
                     android:textAllCaps="false"
                     android:textColor="@android:color/background_light"
                     android:textSize="16sp" />

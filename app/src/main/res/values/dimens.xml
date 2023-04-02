@@ -2,4 +2,10 @@
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
     <dimen name="w_50">50dp</dimen>
+    <dimen name="w_150">150dp</dimen>
+    <dimen name="txt_small">12sp</dimen>
+    <dimen name="txt_large">20sp</dimen>
+
+    <dimen name="margin_padding_small">12dp</dimen>
+    <dimen name="margin_padding_medium">15dp</dimen>
 </resources>
