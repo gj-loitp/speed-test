@@ -7,7 +7,7 @@ import android.net.Uri
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
-import egcodes.com.speedtest.R
+import com.roy.speedtest.R
 
 object C {
     fun showPopup(

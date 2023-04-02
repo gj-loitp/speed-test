@@ -20,7 +20,7 @@ android {
     repositories {
         google()
     }
-    namespace 'egcodes.com.speedtest'
+    namespace 'com.roy.speedtest'
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
@@ -49,10 +49,10 @@ android {
 }
 
 dependencies {
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation files('libs/achartengine-1.2.0.jar')
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+//    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+    api files('libs/achartengine-1.2.0.jar')
+    api 'androidx.appcompat:appcompat:1.6.1'
     api 'nl.dionsegijn:konfetti-xml:2.0.2'
 }

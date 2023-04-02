@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
+import com.roy.speedtest.BuildConfig;
+import com.roy.speedtest.R;
 import com.roy.speedtest.ext.C;
 import com.roy.speedtest.helper.Presets;
 import com.roy.speedtest.sv.SpeedTestHandler;
@@ -36,10 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-import egcodes.com.speedtest.BuildConfig;
-import egcodes.com.speedtest.R;
 import nl.dionsegijn.konfetti.xml.KonfettiView;
-
 
 public class MainActivity extends AppCompatActivity {
     static int position = 0;
