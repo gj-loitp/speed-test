@@ -6,4 +6,5 @@
     <string name="download">DOWNLOAD</string>
     <string name="_0_mbps">0 Mbps</string>
     <string name="upload">UPLOAD</string>
+    <string name="selec_best_sv">Selecting best server based on ping...</string>
 </resources>
