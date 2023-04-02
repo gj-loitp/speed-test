@@ -1,65 +1,48 @@
-package com.roy.speedtest.test;
+package com.roy.speedtest.test
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.HashMap;
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
-public class PingTest extends Thread {
+class PingTest(serverIpAddress: String, pingTryCount: Int) : Thread() {
+    //    var result = HashMap<String, Any>()
+    private var server = ""
+    private var count: Int
+    var instantRtt = 0.0
+    var avgRtt = 0.0
+    var isFinished = false
 
-    HashMap<String, Object> result = new HashMap<>();
-    String server = "";
-    int count;
-    double instantRtt = 0;
-    double avgRtt = 0.0;
-    boolean finished = false;
-
-    public PingTest(String serverIpAddress, int pingTryCount) {
-        this.server = serverIpAddress;
-        this.count = pingTryCount;
+    init {
+        server = serverIpAddress
+        count = pingTryCount
     }
 
-    public double getAvgRtt() {
-        return avgRtt;
-    }
-
-    public double getInstantRtt() {
-        return instantRtt;
-    }
-
-    public boolean isFinished() {
-        return finished;
-    }
-
-    @Override
-    public void run() {
+    override fun run() {
         try {
-            ProcessBuilder ps = new ProcessBuilder("ping", "-c " + count, this.server);
-
-            ps.redirectErrorStream(true);
-            Process pr = ps.start();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-            String line;
-            while ((line = in.readLine()) != null) {
+            val ps = ProcessBuilder("ping", "-c $count", server)
+            ps.redirectErrorStream(true)
+            val pr = ps.start()
+            val `in` = BufferedReader(InputStreamReader(pr.inputStream))
+            var line: String
+            while (`in`.readLine().also { line = it } != null) {
                 if (line.contains("icmp_seq")) {
-                    instantRtt = Double.parseDouble(line.split(" ")[line.split(" ").length - 2].replace("time=", ""));
+                    instantRtt = line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }
+                        .toTypedArray()[line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }
+                        .toTypedArray().size - 2].replace("time=", "").toDouble()
                 }
                 if (line.startsWith("rtt ")) {
-                    avgRtt = Double.parseDouble(line.split("/")[4]);
-                    break;
+                    avgRtt = line.split("/".toRegex()).dropLastWhile { it.isEmpty() }
+                        .toTypedArray()[4].toDouble()
+                    break
                 }
                 if (line.contains("Unreachable") || line.contains("Unknown") || line.contains("%100 packet loss")) {
-                    return;
+                    return
                 }
             }
-            pr.waitFor();
-            in.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            pr.waitFor()
+            `in`.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
-        finished = true;
+        isFinished = true
     }
-
 }
