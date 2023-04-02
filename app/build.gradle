@@ -3,7 +3,7 @@ android {
     compileSdkVersion 33
     defaultConfig {
         applicationId "com.roy93group.speedtest"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 33
         versionCode 20230402
         versionName "2023.04.02"
