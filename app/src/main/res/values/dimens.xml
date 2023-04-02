@@ -6,6 +6,7 @@
     <dimen name="txt_small">12sp</dimen>
     <dimen name="txt_large">20sp</dimen>
 
+    <dimen name="margin_padding_tiny">6dp</dimen>
     <dimen name="margin_padding_small">12dp</dimen>
     <dimen name="margin_padding_medium">15dp</dimen>
     <dimen name="txt_largest">30sp</dimen>
