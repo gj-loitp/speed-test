@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
     defaultConfig {
         applicationId "com.roy93group.speedtest"
         minSdkVersion 23
-        targetSdkVersion 33
-        versionCode 20230402
-        versionName "2023.04.02"
+        targetSdkVersion 34
+        versionCode 20231008
+        versionName "2023.10.08"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
@@ -42,13 +42,13 @@ android {
     }
     namespace 'com.roy.speedtest'
 
-    android.applicationVariants.all { variant ->
+    android.applicationVariants.configureEach { variant ->
         variant.outputs.all {
             outputFileName = defaultConfig.applicationId + buildType.name + "_" + defaultConfig.versionName + "_" + defaultConfig.versionCode + ".apk"
         }
     }
 
-    flavorDimensions "type"
+    flavorDimensions.add("type")
     productFlavors {
 
         dev {
@@ -84,5 +84,5 @@ dependencies {
     api files('libs/achartengine-1.2.0.jar')
     api 'androidx.appcompat:appcompat:1.6.1'
     api 'nl.dionsegijn:konfetti-xml:2.0.2'
-    api 'com.applovin:applovin-sdk:11.8.2'
+    api 'com.applovin:applovin-sdk:11.11.3'
 }
